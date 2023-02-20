@@ -31,6 +31,11 @@ con.connect(function (err) {
     console.log("connected")
 })
 
+const articleRoutes = require('./routes/article')
+
+app.use('/', articleRoutes)
+app.use('/article', articleRoutes)
+
 app.get('/', (req, res) => {
     let query = "SELECT * FROM article"
     let articles = []
