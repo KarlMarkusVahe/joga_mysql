@@ -35,7 +35,7 @@ const articleRoutes = require('./routes/article')
 
 app.use('/', articleRoutes)
 app.use('/article', articleRoutes)
-app.use('author', articleRoutes)
+app.use('/author', articleRoutes)
 
 app.listen(3050, () => {
     console.log("App started")

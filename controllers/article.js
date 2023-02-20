@@ -1,7 +1,11 @@
 const con = require('../utils/db')
 
 const getAllArticles = (req, res) => {
-    let query = "SELECT * FROM article"
+    let query = `SELECT article.*,
+                    author.author_name as author_name
+                    FROM article
+                    INNER JOIN author 
+                    ON article.author_id = author.id`
     let articles = []
     con.query(query, (err, result) => {
         if (err) throw err
@@ -15,7 +19,7 @@ const getAllArticles = (req, res) => {
 const getArticleBySlug = (req, res) => {
     let query = `SELECT *,
                     article.name as article_name,
-                    article.name as article_name
+                    author.author_name as author_name
                     FROM article
                     INNER JOIN author
                     ON author.id = article.author_id
