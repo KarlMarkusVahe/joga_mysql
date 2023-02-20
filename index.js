@@ -35,25 +35,7 @@ const articleRoutes = require('./routes/article')
 
 app.use('/', articleRoutes)
 app.use('/article', articleRoutes)
-
-app.get('/author/:author_id', (req, res) => {
-    let query = `SELECT * FROM article WHERE author_id="${req.params.author_id}"`
-    let articles
-    con.query(query, (err, result) => {
-        if (err) throw err
-        articles = result
-        query = `SELECT * FROM author WHERE id="${req.params.author_id}"`
-        let author
-        con.query(query, (err, result) => {
-            if (err) throw err
-            author = result
-            res.render('author', {
-                author: author,
-                articles: articles
-            })
-        })
-    })
-})
+app.use('author', articleRoutes)
 
 app.listen(3050, () => {
     console.log("App started")
