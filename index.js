@@ -36,36 +36,6 @@ const articleRoutes = require('./routes/article')
 app.use('/', articleRoutes)
 app.use('/article', articleRoutes)
 
-app.get('/', (req, res) => {
-    let query = "SELECT * FROM article"
-    let articles = []
-    con.query(query, (err, result) => {
-        if (err) throw err
-        articles = result
-        res.render('index', {
-            articles: articles
-        })
-    })
-})
-
-app.get('/article/:slug', (req, res) => {
-    let query = `SELECT *, 
-                author.author_name as author_name,
-                article.name as article_name
-                FROM article
-                INNER JOIN author
-                ON author.id = article.author_id
-                WHERE slug="${req.params.slug}"`
-    let article
-    con.query(query, (err, result) => {
-        if (err) throw err
-        article = result
-        res.render('article', {
-            article: article
-        })
-    })
-})
-
 app.get('/author/:author_id', (req, res) => {
     let query = `SELECT * FROM article WHERE author_id="${req.params.author_id}"`
     let articles
